@@ -108,7 +108,7 @@ class Hangman
   private
 
   def win_game
-    File.delete(@save_path) if File.exist?(@save_path)
+    File.delete($save_path) if File.file?($save_path)
     puts 'You won!'
     puts "#{@working_word.join} was correct!"
     puts 'Start a new game? y/n'
@@ -123,7 +123,7 @@ class Hangman
   end
 
   def lose_game
-    File.delete(@save_path) if File.exist?(@save_path)
+    File.delete($save_path) if File.file?($save_path)
     puts 'Sorry you were hung!'
     puts "The secret word was #{@secret_word.join}"
     puts 'Start a new game? y/n'
@@ -191,7 +191,7 @@ game.put_title
 game.save_notice
 
 if game.load_check
-  game.unserialize($save)
+  game.unserialize
   game.load_game
 else
   game.new_game
